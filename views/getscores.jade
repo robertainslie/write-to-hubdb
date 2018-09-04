@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/getscores.css')
+  body
+  -var ob = JSON.parse(scoreData)
+      div(class="scoreboard")
+        div(class="board-top")
+          img(class="game-logo" src="//cdn2.hubspot.net/hubfs/137828/INBOUND%20Game/speed-logo.png")
+        div(class="board-bottom")
+          div(class="table-title") Leaderboard
+          ol(class="box")
+            each item,index in ob['objects']
+              li(class="player"+" "+"player"+index)
+                span(class="name-left")= item['values']['1']
+                span(class="score-right")= item['values']['3']
+
+  script.
+    (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+      n.id=i;n.src='//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/203693.js';
+      e.parentNode.insertBefore(n, e);
+    })(document,"script","hs-analytics",300000);

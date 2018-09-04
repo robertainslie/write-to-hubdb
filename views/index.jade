@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(name="hubspot-form", method="post", action="/submit-score")
+        div.input
+            input(type="text", name="players_firstname", placeholder="Enter Your First Name!")
+          div.input
+            input(type="text", name="players_lastname", placeholder="Enter Your Last Name!")
+        div.input
+            input(type="text", name="players_email", placeholder="Enter Your Email!")
+        div.input
+            input( style="display:none;" type="number", name="players_score",value='1000')
+        div.input
+            input( type="checkbox", checked="checked" name="show_on_scoreboard")
+        div.input
+            input(type="hidden", name="redirect_url",value='https://www.hubspot.com')
+        div.input
+            input(type="hidden" name="hs_context")
+        div.actions
+            input(type="submit", value="Submit The Form")
+  script.
+    document.addEventListener("DOMContentLoaded", function() {
+    var cookies = document.cookie;
+    var splitc = cookies.split(";");
+    var utk = [];
+    for (var i = 0;i<splitc.length;i++){
+    var c = splitc[i].split("=");
+    if (c[0]==' hubspotutk'){
+    utk.push(c[1])
+    }}
+    document.querySelector("[name=hs_context]").value = "{\"hutk\"\: \""+utk[0]+"\"\}";
+    });
+
+  script.
+    (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+      n.id=i;n.src='//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/203693.js';
+      e.parentNode.insertBefore(n, e);
+    })(document,"script","hs-analytics",300000);

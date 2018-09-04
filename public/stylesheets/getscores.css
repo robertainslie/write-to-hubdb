@@ -1,0 +1,83 @@
+body {
+    font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #495b67;
+}
+
+.scoreboard{ 
+    /*height: 100vh;*/
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.board-top{
+    background: #262B39;
+    border: none;
+    color: #FFF;
+    padding: 20px;
+
+}
+
+.game-logo{
+    max-width: 400px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+}
+
+.table-title{
+    background-color: rgba(247,96,31,.8);
+    color: #FFFFFF;
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-align: center;
+    width: 100%;
+    font-weight: bolder;
+    white-space: normal;
+    margin: 0px auto 20px;
+    height: auto;
+    padding: 13px 0;
+    text-transform:uppercase;
+}
+
+.board-bottom{
+  color: #292b39;
+  display: block;
+  background: #e1e1e1 url(//cdn2.hubspot.net/hubfs/146726/2015/backgrounds/gray-bg_tile.png);
+  background-repeat: repeat-y;
+  border: none !important;
+  padding: 0 0 20px;
+}
+
+.box{
+      max-width: 400px;
+    margin: 0 auto;
+    display: block;
+    min-height:1000px;
+}
+
+.player{
+  padding: 15px 0px;
+    font-size: 27px;
+
+}
+
+.name-left{
+  float:left
+}
+
+.score-right{
+      float: right;
+    font-weight: bolder;
+
+}
+
+.total-submitted{
+    margin:20px auto;
+    text-align:center;
+    display:block;
+}
