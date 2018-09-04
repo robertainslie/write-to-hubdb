@@ -3,7 +3,7 @@ var router = express.Router();
 var request = require('request');
 var _ = require('lodash');
 
-function getMultiSelect (value) {
+function getMultiSelect (value) { //create HubDB acceptable array from multi select field
 		var rawValues = value.split(';');
 		var values = []
 		rawValues.forEach(function(item) {
@@ -13,38 +13,27 @@ function getMultiSelect (value) {
 	}
 
 
-router.get('/update-hug-leader',function(req,res,next){
+router.get('/update-hubdb',function(req,res,next){
 	res.render('index', { title: 'Testing Hugs' });
 });
 
-router.post('/update-hug-leader', function(req,res,next){
-	var auth = req.get("authorization");
+router.post('/update-hubdb', function(req,res,next){
+	var auth = req.get("authorization"); //get authorization header 
 	var credentials = new Buffer(auth.split(" ").pop(), "base64").toString("ascii").split(":");
 
-	if (credentials[1]===process.env.WEBHOOK_AUTH_PW){
-		var areas_of_expertise = getMultiSelect(_.get(req.body.properties,'areas_of_expertise.value',''));
+	if (credentials[1]===process.env.WEBHOOK_AUTH_PW){ //HubSpot Workflow webhook can include Basic Auth - set PW in HubSpot and environment var
+		var ice_cream = getMultiSelect(_.get(req.body.properties,'ice_cream.value','')); //create HubDB acceptable array from multi select field
 		var options = {
 				uri: `https://api.hubapi.com/hubdb/api/v1/tables/${process.env.HUBDB_TABLE_ID}/rows?portalId=${process.env.HUB_ID}&hapikey=${process.env.HAPI_KEY}`,
 				method: 'POST',
 				json: {
-					"values": {
-						    "1":_.get(req.body.properties,'hug_city.value',''),
+					"values": {//key IDs are found in Get HubDB REST call - details https://developers.hubspot.com/docs/methods/hubdb/v2/get_table
 						    "2": _.get(req.body.properties,'firstname.value',''),
 						    "3": _.get(req.body.properties,'lastname.value', ""),
-						    "5": _.get(req.body.properties,'hug_page_contact_email.value',''),
-						    "8": _.get(req.body.properties,'twitterhandle.value',""),
-						    "9": _.get(req.body.properties,'facebook_or_linkedin_link_.value',""),
-						    "10": _.get(req.body.properties,'hug_leader_since_year_.value', ""),
-						    "11": {"url": _.get(req.body.properties,'hug_leader_profile_picture.value', ""),"type": "image"},
-						    "13": _.get(req.body.properties,'hug_portal_link.value', ""),
-						    "14": Number(_.get(req.body.properties,'hug_event_date.value',"")),
-						    "15": _.get(req.body.properties,'hug_event_topic.value',""),
-						    "16": _.get(req.body.properties,'hug_event_description.value',""),
-						    "27": _.get(req.body.properties,'hug_secondary_hug_leader.value',""),
-						    "29": areas_of_expertise,
-						    "30": _.get(req.body.properties,'hug_leader_bio.value', ""),
-						    "31": _.get(req.body.properties,'hug_overview.value',""),
-						    "32": _.get(req.body.properties,'event_registration_link.value',"")
+						    "4": _.get(req.body.properties,'email.value', ""),
+						    "5": {"url": _.get(req.body.properties,'headshot.value', ""),"type": "image"},
+						    "6": Number(_.get(req.body.properties,'age.value',""))
+						    "7": ice_cream
 					}
 				}
 			};
