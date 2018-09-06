@@ -32,7 +32,7 @@ router.post('/update-hubdb', function(req,res,next){
 						    "3": _.get(req.body.properties,'lastname.value', ""),
 						    "4": _.get(req.body.properties,'email.value', ""),
 						    "5": {"url": _.get(req.body.properties,'headshot.value', ""),"type": "image"},
-						    "6": Number(_.get(req.body.properties,'age.value',""))
+						    "6": Number(_.get(req.body.properties,'age.value',"")),
 						    "7": `${ice_cream}`
 					}
 				}
